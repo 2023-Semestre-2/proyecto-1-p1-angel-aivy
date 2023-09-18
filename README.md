@@ -2,6 +2,7 @@
 # Gestor de Procesos
 ## Integrantes:
 ### 2014015712 Ángel Villalobos Peña
+### 2016253759 Aivy Masis Rivera
 
 ### Estado del proyecto: Escala de 1 a 5, 1 siendo completo y 5 deplorable
 ### Enlace del video: (Si esto fue solicitado)
