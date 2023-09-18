@@ -11,10 +11,14 @@ import java.util.Queue;
 public class MiniComputer {
     private final Storage storage;
     private Queue<PCB> workQueue;//List of PCBs associated to each files
+    private Memory memory;
+
+    private final int PCB_DEFAULT_SIZE = 15;
 
     public MiniComputer() {
         this.storage = new Storage();
         this.workQueue = new LinkedList<>();
+        this.memory = new Memory();
     }
 
     public void setIndexSpaceSizeToStorage(int size) {
@@ -33,6 +37,24 @@ public class MiniComputer {
         }
     }
 
+    public void setMemoryReservedSpace() {
+        int reservedSpace = workQueue.size() * PCB_DEFAULT_SIZE;
+        memory.setReservedSpace(reservedSpace);
+        memory.setStart(reservedSpace);
+    }
+
+    public List<String> getFileContentFromStorage(String fileName) {
+        return this.storage.getFileContent(fileName);
+    }
+
+    public void loadFileContentToMemory() {
+        PCB pcb = getPCB();
+        List<String> fileContent = getFileContentFromStorage(pcb.getId());
+        memory.loadToMemory(pcb, fileContent);
+//        memory.loadToMemory();
+
+    }
+
     public void createAndAddPCB(String fileName, List<String> fileContent) {
         PCB pcb = new PCB();
         pcb.setState(State.NEW);
@@ -44,6 +66,7 @@ public class MiniComputer {
         pcb.setStartAddress(0);
         pcb.setProcessSize(fileContent.size());
         pcb.setPriority(0);
+        pcb.setId(fileName);
         //todo: handle opened files
         //cb.setOpenFiles
 
@@ -52,5 +75,17 @@ public class MiniComputer {
 
     public Storage getStorage() {
         return this.storage;
+    }
+
+    public PCB getPCB() {
+        return this.workQueue.peek();
+    }
+
+    public Memory getMemory() {
+        return memory;
+    }
+
+    public Queue<PCB> getWorkQueue() {
+        return workQueue;
     }
 }

@@ -13,6 +13,15 @@ import java.util.List;
 public class ProcessManagerController {
     @FXML
     private Button loadFiles;
+    @FXML
+    private Button execute;
+
+    @FXML
+    private TableView<MemoryRow> memoryTable;
+    @FXML
+    private TableColumn<MemoryRow, Number> posColumn;
+    @FXML
+    private TableColumn<MemoryRow, String> contColumn;
 
     @FXML
     private TableView<DiskData> diskTable;
@@ -30,9 +39,21 @@ public class ProcessManagerController {
 
         positionColumn.setCellValueFactory(cellData -> cellData.getValue().indexProperty());
         contentColumn.setCellValueFactory(cellData -> cellData.getValue().contentProperty());
+        posColumn.setCellValueFactory(cellData -> cellData.getValue().indexProperty());
+        contColumn.setCellValueFactory(cellData -> cellData.getValue().contentProperty());
 
 //        Helpers.colorRowsInRange(diskTable, 0, 64 + 2, "indianRed");
 
+    }
+
+    @FXML
+    private void onExecuteClick() {
+        //todo: delete this after debugging
+        System.out.println(miniComputer.getFileContentFromStorage(miniComputer.getPCB().getId()).toString());
+
+        miniComputer.loadFileContentToMemory();
+
+        updateMemoryTable();
     }
 
     @FXML
@@ -49,6 +70,7 @@ public class ProcessManagerController {
                 System.out.println("File selected: " + file.getAbsolutePath());
                 miniComputer.addFileToStorage(file);
             }
+            miniComputer.setMemoryReservedSpace();
             updateDiskTable();
         } else {
             System.out.println("No files selected");
@@ -57,5 +79,9 @@ public class ProcessManagerController {
 
     private void updateDiskTable() {
         Helpers.updateDiskTable(diskTable, miniComputer.getStorage());
+    }
+
+    private void updateMemoryTable() {
+        Helpers.updateMemoryTable(memoryTable, miniComputer.getMemory());
     }
 }

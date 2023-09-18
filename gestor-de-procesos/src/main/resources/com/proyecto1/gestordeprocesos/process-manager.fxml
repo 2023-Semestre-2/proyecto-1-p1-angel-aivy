@@ -6,11 +6,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="598.0" prefWidth="1083.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyecto1.gestordeprocesos.ProcessManagerController">
-    <Button fx:id="loadFiles" layoutX="46.0" layoutY="29.0" mnemonicParsing="false" onAction="#onLoadFilesClick" text="loadFiles" />
+    <Button fx:id="loadFiles" layoutX="46.0" layoutY="29.0" mnemonicParsing="false" onAction="#onLoadFilesClick" text="Load files" />
     <TableView fx:id="diskTable" layoutX="824.0" layoutY="29.0" prefHeight="422.0" prefWidth="234.0" translateX="1.0" AnchorPane.bottomAnchor="250.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columns>
             <TableColumn fx:id="positionColumn" prefWidth="50.0" text="Pos" />
             <TableColumn fx:id="contentColumn" prefWidth="183.0" text="Valor en disco" />
         </columns>
     </TableView>
+   <Button fx:id="execute" layoutX="199.0" layoutY="29.0" mnemonicParsing="false" onAction="#onExecuteClick" text="Ejecutar" />
+   <TableView fx:id="memoryTable" layoutX="569.0" layoutY="20.0" prefHeight="328.0" prefWidth="234.0" AnchorPane.bottomAnchor="250.0" AnchorPane.rightAnchor="280.0" AnchorPane.topAnchor="20.0">
+     <columns>
+       <TableColumn fx:id="posColumn" prefWidth="52.0" text="Pos" />
+       <TableColumn fx:id="contColumn" prefWidth="181.0" text="Valor en memoria" />
+     </columns>
+   </TableView>
 </AnchorPane>

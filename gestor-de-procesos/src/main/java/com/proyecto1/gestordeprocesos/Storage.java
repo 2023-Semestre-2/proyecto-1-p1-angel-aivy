@@ -1,5 +1,7 @@
 package com.proyecto1.gestordeprocesos;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -72,6 +74,30 @@ public class Storage {
             }
         }
         return false;
+    }
+
+    public List<String> getFileContent(String fileName) {
+        for (int i = VIRTUAL_MEMORY_SIZE; i < VIRTUAL_MEMORY_SIZE + INDEX_SPACE_SIZE; i++) {
+            if (diskStorage[i] != null && diskStorage[i].startsWith(fileName)) {
+
+                String[] parts = diskStorage[i].split("->")[1].trim().split(",");
+                int start = Integer.parseInt(parts[0].trim());
+                int end = Integer.parseInt(parts[1].trim());
+
+                return new ArrayList<>(Arrays.asList(diskStorage).subList(start, end + 1));
+            }
+        }
+        // Si no se encuentra el archivo, retorna null o una lista vacía
+        return null;
+    }
+
+    public String getFileIndex(String fileName) {
+        for (int i = VIRTUAL_MEMORY_SIZE; i < VIRTUAL_MEMORY_SIZE + INDEX_SPACE_SIZE; i++) {
+            if (diskStorage[i] != null && diskStorage[i].startsWith(fileName)) {
+                return diskStorage[i];
+            }
+        }
+        return null;
     }
 
     /**

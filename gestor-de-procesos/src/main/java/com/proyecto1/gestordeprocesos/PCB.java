@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class PCB {
+public class PCB implements MemoryData {
+    private String id; //file name to identify it
+    private static int count = 0;
     private State state;
     private int PC; //program counter
     private HashMap<String, Integer> registers;
@@ -12,7 +14,7 @@ public class PCB {
     private int executingCPU;
     private long startTime;
     private long elapsedTime;
-    private final List<String> openFiles = new ArrayList<>();
+    private final List<String> openFiles = new ArrayList<>(); //I/O state information: opened files
     private PCB nextPCB;
     private int startAddress;
     private int processSize;
@@ -25,17 +27,27 @@ public class PCB {
         this.registers.put("BX", 0);
         this.registers.put("CX", 0);
         this.registers.put("DX", 0);
+        this.executingCPU = 1;
+        count++;
     }
 
     public void setState(State state) {
         this.state = state;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public void setPC(int PC) {
         this.PC = PC;
     }
 
-    public void addRegister(String key, int value){
+    public void addRegister(String key, int value) {
         this.registers.put(key, value);
     }
 
@@ -69,5 +81,10 @@ public class PCB {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    @Override
+    public String getData() {
+        return "PCB: " + count + " " + id;
     }
 }

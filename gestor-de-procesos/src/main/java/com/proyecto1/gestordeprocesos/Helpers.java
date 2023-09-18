@@ -31,6 +31,23 @@ public class Helpers {
         // Set the data in the TableView
         diskTable.setItems(data);
     }
+    public static void updateMemoryTable(TableView<MemoryRow> memoryTable, Memory memory) {
+        // Get the data from the storage array
+        MemoryData[] mainMemory = memory.getMemory();
+
+        // Create an observable list to hold the data for the TableView
+        ObservableList<MemoryRow> data = FXCollections.observableArrayList();
+
+        // Loop through the storage array and create DiskData objects for each non-null entry
+        for (int i = 0; i < mainMemory.length; i++) {
+            if (mainMemory[i] != null) {
+                data.add(new MemoryRow(i, mainMemory[i].getData()));
+            }
+        }
+
+        // Set the data in the TableView
+        memoryTable.setItems(data);
+    }
 
 
     public static void colorRowsInRange(TableView<DiskData> table, int startIndex, int endIndex, String color) {
