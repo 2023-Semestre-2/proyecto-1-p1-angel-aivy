@@ -2,7 +2,8 @@ package com.proyecto1.gestordeprocesos;
 
 public class Instruction implements MemoryData{
     private String operator;
-    private String register;
+    private String register1;
+    private String register2;
     private String value;
 
     private String strInstruction;
@@ -15,10 +16,25 @@ public class Instruction implements MemoryData{
             return;
         }
         this.operator = parts[0];
-        this.register = parts[1].replace(",", "").trim();
+        this.register1 = parts[1].replace(",", "").trim();
 
         if (parts.length > 2) {
-            this.value = parts[2].trim();
+            if (isInteger(parts[2].trim())){
+                this.value = parts[2].trim();
+            }
+            else{
+                this.register2 = parts[2].trim();
+            }
+        }
+    }
+
+    public boolean isInteger( String input ) {
+        try {
+            Integer.parseInt( input );
+            return true;
+        }
+        catch( Exception e ) {
+            return false;
         }
     }
 
@@ -27,9 +43,13 @@ public class Instruction implements MemoryData{
     }
 
     public String getRegister() {
-        return register;
+        return register1;
+    }
+    public String getRegister2() {
+        return register2;
     }
 
+    // Por que es un string?
     public String getValue() {
         return value;
     }
