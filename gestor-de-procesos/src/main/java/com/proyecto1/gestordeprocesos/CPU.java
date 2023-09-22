@@ -16,7 +16,7 @@ solo lee de la mem proincipal, ejecutar las funciones y tiene que actualizar el 
 public class CPU {
     Queue<Instruction> queue = new LinkedList<>() {
     };
-    Stack<Integer> stack = new Stack<Integer>();
+    Stack<Integer> stack = new Stack<>();
     int AC; // Acumulador
     int PC; // Program Counter
     HashMap<String, Integer> registers;
@@ -33,20 +33,20 @@ public class CPU {
         this.registers.put(registro, valor);
     }
 
-    public int[] ejecutarInstruction(int memoryPos, Memory memoria) {
+    public int[] ejecutarInstruction(int memoryPos, Memory memory) {
         this.PC = memoryPos;
-        Instruction instruccion = memoria.getInstruction(memoryPos);
-        int valor = instruccion.getValue();
+        Instruction instruction = memory.getInstruction(memoryPos);
+        int valor = instruction.getValue();
         if (valor == 0){
-            valor = registers.getOrDefault(instruccion.getRegister(), 0);
+            valor = registers.getOrDefault(instruction.getRegister(), 0);
         }
-        registers.put(instruccion.getRegister(), valor);
+        registers.put(instruction.getRegister(), valor);
 
-        calcularAC(instruccion);
+        operatorCalc(instruction);
 
         int[] resultArray = new int[7];
         resultArray[0] = this.PC;
-        resultArray[1] = instruccion.getBinaryStringToDecimal();
+        resultArray[1] = instruction.getBinaryStringToDecimal();
         resultArray[2] = this.AC;
         resultArray[3] = registers.getOrDefault("AX", 0);
         resultArray[4] = registers.getOrDefault("BX", 0);
@@ -58,7 +58,7 @@ public class CPU {
         return resultArray;
     }
 
-    public void calcularAC (Instruction instruccion) {
+    public void operatorCalc (Instruction instruccion) {
         String operator = instruccion.getOperator();
         String registroKey = instruccion.getRegister();
         String registroKey2 = instruccion.getRegister2();
@@ -105,18 +105,26 @@ public class CPU {
                 }
                 else if (registroKey.equals("10H")) {
                         //Imprime valor de DX
+                    int tempValue = this.registers.getOrDefault("DX", 0);
+                    // print in screen
                 }
                 else if (registroKey.equals("09H")) {
                     //Input from keyboard 0-255, saves in DX and ends with ENTER
+                    int tempVal = 0; // has to be a keyboard input
+                    if (tempVal >= 0 && tempVal <= 255){
+                        this.registers.put("DX", tempVal);
+                    }
                 }
             }
-            case "JMP" ->
-            case "CMP" ->
-            case "JNE" ->
-            case "JE" ->
-            case "PARAM" ->
-            case "PUSH" ->
-            case "POP" ->
+            case "JMP" ->{}
+            case "CMP" ->{}
+            case "JNE" ->{}
+            case "JE" ->{}
+            case "PARAM" ->{}
+            case "PUSH" -> //Saves in the stack value in AX register
+                stack.push(this.registers.getOrDefault("AX", 0));
+            case "POP" -> //Saves the value from the stack to the register
+                this.registers.put(registroKey,stack.pop());
 
 
             default -> {

@@ -50,8 +50,8 @@ public class Instruction implements MemoryData{
     }
 
     // Por que es un string?
-    public String getValue() {
-        return value;
+    public int getValue() {
+        return Integer.parseInt(value);
     }
 
     @Override
