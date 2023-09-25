@@ -1,5 +1,6 @@
 package com.proyecto1.gestordeprocesos;
 
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -30,6 +31,20 @@ public class ProcessManagerController {
     @FXML
     private TableColumn<DiskData, String> contentColumn;
 
+    @FXML
+    private TableView<ProcessRow> processTable;
+    @FXML
+    private TableColumn<ProcessRow, Number> processColumn;
+    @FXML
+    private TableColumn<ProcessRow, String> stateColumn;
+
+    @FXML
+    private TableView<RegisterRow> registerTable;
+    @FXML
+    private TableColumn<RegisterRow, String> registerColumn;
+//    @FXML
+//    private TableColumn<RegisterRow, String> valueColumn;
+
     private MiniComputer miniComputer;
 
 
@@ -42,7 +57,11 @@ public class ProcessManagerController {
         posColumn.setCellValueFactory(cellData -> cellData.getValue().indexProperty());
         contColumn.setCellValueFactory(cellData -> cellData.getValue().contentProperty());
 
-//        Helpers.colorRowsInRange(diskTable, 0, 64 + 2, "indianRed");
+        processColumn.setCellValueFactory(cellData -> cellData.getValue().indexProperty());
+        stateColumn.setCellValueFactory(cellData -> cellData.getValue().contentProperty());
+
+        registerColumn.setCellValueFactory(cellData -> cellData.getValue().contentProperty());
+//        valueColumn.setCellValueFactory(cellData -> cellData.getValue().contentProperty());
 
     }
 
@@ -54,6 +73,17 @@ public class ProcessManagerController {
         miniComputer.loadFileContentToMemory();
 
         updateMemoryTable();
+//        miniComputer.execute(this.registerTable);
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+              miniComputer.execute(registerTable);
+                return null;
+            }
+        };
+        new Thread(task).start();
+
+
     }
 
     @FXML
@@ -72,6 +102,7 @@ public class ProcessManagerController {
             }
             miniComputer.setMemoryReservedSpace();
             updateDiskTable();
+            miniComputer.addPCBToTable(this.processTable);
         } else {
             System.out.println("No files selected");
         }
@@ -83,5 +114,8 @@ public class ProcessManagerController {
 
     private void updateMemoryTable() {
         Helpers.updateMemoryTable(memoryTable, miniComputer.getMemory());
+    }
+    private void updateProcessTable() {
+        //todo Helpers.updateProcessTable(memoryTable, miniComputer.getMemory());
     }
 }

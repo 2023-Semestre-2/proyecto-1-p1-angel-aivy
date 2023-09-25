@@ -8,9 +8,12 @@ public class Memory {
     private MemoryData[] memory = new MemoryData[MEMORY_SIZE]; //It's a generic type because we need to add two types of object
     private int reservedSpace; // Space reserved to the PCBs
     private int start = 0;
+    private int contentStartIndex; // Index from which the content starts in the memory
 
 
-    public Memory() {}
+    public Memory() {
+        this.contentStartIndex = 0;
+    }
 
     public void loadToMemory(PCB pcb, List<String> content) {
         if (reservedSpace < 1 || reservedSpace + content.size() >= MEMORY_SIZE) {
@@ -20,9 +23,16 @@ public class Memory {
 
         memory[reservedSpace - 1] = pcb;
 
+        contentStartIndex = reservedSpace;
         for (int i = 0; i < content.size() && reservedSpace + i < MEMORY_SIZE; i++) {
             memory[reservedSpace + i] = new Instruction(content.get(i));
         }
+        pcb.setStartAddress(contentStartIndex);
+//        System.out.println(contentStartIndex);
+    }
+
+    public int getContentStartIndex() {
+        return contentStartIndex;
     }
 
     public void loadToMemory(List<String> content) {

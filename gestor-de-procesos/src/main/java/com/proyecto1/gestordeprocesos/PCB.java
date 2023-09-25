@@ -31,6 +31,7 @@ public class PCB implements MemoryData {
         count++;
     }
 
+
     public void setState(State state) {
         this.state = state;
     }
@@ -67,6 +68,10 @@ public class PCB implements MemoryData {
         this.elapsedTime = elapsedTime;
     }
 
+    public int getProcessSize() {
+        return processSize;
+    }
+
     public void setNextPCB(PCB nextPCB) {
         this.nextPCB = nextPCB;
     }
@@ -83,8 +88,20 @@ public class PCB implements MemoryData {
         this.priority = priority;
     }
 
+    public int getStartAddress() {
+        return startAddress;
+    }
+
     @Override
     public String getData() {
         return "PCB: " + count + " " + id;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public State getState() {
+        return state;
     }
 }

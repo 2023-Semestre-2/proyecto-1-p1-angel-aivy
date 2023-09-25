@@ -20,4 +20,15 @@
        <TableColumn fx:id="contColumn" prefWidth="181.0" text="Valor en memoria" />
      </columns>
    </TableView>
+   <TableView fx:id="processTable" layoutX="30.0" layoutY="148.0" prefHeight="317.0" prefWidth="200.0" AnchorPane.bottomAnchor="133.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="148.0">
+     <columns>
+       <TableColumn fx:id="processColumn" prefWidth="75.0" text="Procesos" />
+       <TableColumn fx:id="stateColumn" prefWidth="124.0" text="Estados" />
+     </columns>
+   </TableView>
+   <TableView fx:id="registerTable" layoutX="269.0" layoutY="148.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="269.0" AnchorPane.topAnchor="148.0">
+     <columns>
+       <TableColumn fx:id="registerColumn" prefWidth="199.0" text="BCP actual CPU 1" />
+     </columns>
+   </TableView>
 </AnchorPane>

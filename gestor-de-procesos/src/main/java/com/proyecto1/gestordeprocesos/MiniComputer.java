@@ -1,5 +1,10 @@
 package com.proyecto1.gestordeprocesos;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.scene.control.TableView;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -10,8 +15,9 @@ import java.util.Queue;
 
 public class MiniComputer {
     private final Storage storage;
-    private Queue<PCB> workQueue;//List of PCBs associated to each files
+    private final Queue<PCB> workQueue;//List of PCBs associated to each files
     private Memory memory;
+    private CPU cpu;
 
     private final int PCB_DEFAULT_SIZE = 15;
 
@@ -19,6 +25,7 @@ public class MiniComputer {
         this.storage = new Storage();
         this.workQueue = new LinkedList<>();
         this.memory = new Memory();
+        this.cpu = new CPU();
     }
 
     public void setIndexSpaceSizeToStorage(int size) {
@@ -71,6 +78,24 @@ public class MiniComputer {
         //cb.setOpenFiles
 
         workQueue.add(pcb);
+        //agregar a la tabla UI
+    }
+
+    public void addPCBToTable(TableView<ProcessRow> processTable) {
+        ObservableList<ProcessRow> data = FXCollections.observableArrayList();
+
+        int index = 0;
+        for (PCB pcb : this.workQueue) {
+            System.out.println(index + " - " + pcb.getId());
+            data.add(new ProcessRow(index, pcb.getState().toString()));
+            index++;
+        }
+
+        processTable.setItems(data);
+    }
+
+    public void execute(TableView<RegisterRow> table) {
+        this.cpu.executeInstruction(this.memory, this.getPCB(), table);
     }
 
     public Storage getStorage() {

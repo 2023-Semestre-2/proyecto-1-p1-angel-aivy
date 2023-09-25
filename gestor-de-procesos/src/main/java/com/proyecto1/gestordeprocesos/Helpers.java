@@ -7,6 +7,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 
+import java.util.Queue;
+
 public class Helpers {
     /**
      * Updates the given TableView with the data from the storage array.
@@ -47,6 +49,12 @@ public class Helpers {
 
         // Set the data in the TableView
         memoryTable.setItems(data);
+    }
+    //
+    public static void updateProcessTable(TableView<ProcessRow> processTable, Queue<PCB> workQueue) {
+        ObservableList<ProcessRow> data = FXCollections.observableArrayList();
+
+        //todo
     }
 
 
