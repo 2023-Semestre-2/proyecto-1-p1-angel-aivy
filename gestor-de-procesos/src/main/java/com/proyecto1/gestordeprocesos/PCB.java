@@ -19,6 +19,7 @@ public class PCB implements MemoryData {
     private int startAddress;
     private int processSize;
     private int priority;
+    private int idNumber = 0;
 
     public PCB() {
         this.registers = new HashMap<>();
@@ -38,6 +39,14 @@ public class PCB implements MemoryData {
 
     public String getId() {
         return id;
+    }
+
+    public int getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(int idNumber) {
+        this.idNumber = idNumber;
     }
 
     public void setId(String id) {

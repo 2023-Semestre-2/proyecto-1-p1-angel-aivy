@@ -42,8 +42,10 @@ public class ProcessManagerController {
     private TableView<RegisterRow> registerTable;
     @FXML
     private TableColumn<RegisterRow, String> registerColumn;
-//    @FXML
-//    private TableColumn<RegisterRow, String> valueColumn;
+    @FXML
+    private TableView<CPURow> cpuTable;
+    @FXML
+    private TableColumn<CPURow, String> cpuColumn;
 
     private MiniComputer miniComputer;
 
@@ -61,8 +63,7 @@ public class ProcessManagerController {
         stateColumn.setCellValueFactory(cellData -> cellData.getValue().contentProperty());
 
         registerColumn.setCellValueFactory(cellData -> cellData.getValue().contentProperty());
-//        valueColumn.setCellValueFactory(cellData -> cellData.getValue().contentProperty());
-
+        cpuColumn.setCellValueFactory(cellData -> cellData.getValue().contentProperty());
     }
 
     @FXML
@@ -74,10 +75,10 @@ public class ProcessManagerController {
 
         updateMemoryTable();
 //        miniComputer.execute(this.registerTable);
-        Task<Void> task = new Task<Void>() {
+        Task<Void> task = new Task<>() {
             @Override
             protected Void call() throws Exception {
-              miniComputer.execute(registerTable);
+                miniComputer.execute(registerTable, cpuTable);
                 return null;
             }
         };
@@ -115,6 +116,7 @@ public class ProcessManagerController {
     private void updateMemoryTable() {
         Helpers.updateMemoryTable(memoryTable, miniComputer.getMemory());
     }
+
     private void updateProcessTable() {
         //todo Helpers.updateProcessTable(memoryTable, miniComputer.getMemory());
     }

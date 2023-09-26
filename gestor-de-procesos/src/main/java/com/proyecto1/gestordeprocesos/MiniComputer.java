@@ -16,9 +16,9 @@ import java.util.Queue;
 public class MiniComputer {
     private final Storage storage;
     private final Queue<PCB> workQueue;//List of PCBs associated to each files
+
     private Memory memory;
     private CPU cpu;
-
     private final int PCB_DEFAULT_SIZE = 15;
 
     public MiniComputer() {
@@ -74,6 +74,7 @@ public class MiniComputer {
         pcb.setProcessSize(fileContent.size());
         pcb.setPriority(0);
         pcb.setId(fileName);
+        pcb.setIdNumber(pcb.getCount());
         //todo: handle opened files
         //cb.setOpenFiles
 
@@ -94,8 +95,8 @@ public class MiniComputer {
         processTable.setItems(data);
     }
 
-    public void execute(TableView<RegisterRow> table) {
-        this.cpu.executeInstruction(this.memory, this.getPCB(), table);
+    public void execute(TableView<RegisterRow> table, TableView<CPURow> cpuTable) {
+        this.cpu.executeInstruction(this.memory, this.getPCB(), table, cpuTable);
     }
 
     public Storage getStorage() {

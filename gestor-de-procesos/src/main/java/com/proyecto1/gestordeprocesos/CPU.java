@@ -46,13 +46,24 @@ public class CPU {
         registerTable.setItems(data);
     }
 
+    public void updateCPUTable(TableView<CPURow> cpuTableView, String content) {
+        ObservableList<CPURow> data = cpuTableView.getItems();
 
-    public void executeInstruction(Memory memory, PCB pcb, TableView<RegisterRow> regTable) {
+        if (data == null) {
+            data = FXCollections.observableArrayList();
+            cpuTableView.setItems(data);
+        }
+        data.add(new CPURow(content));
+//        cpuTableView.setItems(data);
+    }
+
+
+    public void executeInstruction(Memory memory, PCB pcb, TableView<RegisterRow> regTable, TableView<CPURow> cpuTable) {
 
         if (Platform.isFxApplicationThread()) {
-            System.out.println("Estoy en el hilo principal de la UI");
+            System.out.println("Hilo principal de la UI");
         } else {
-            System.out.println("Estoy en un hilo separado");
+            System.out.println("Hilo separado");
         }
 
         MemoryData[] mainMemory = memory.getMemory();
@@ -65,8 +76,10 @@ public class CPU {
 //            updateRegisterTable(regTable,"PC: " + this.PC + "\n" + "IR:" + instruction.getData() + "\n" + "AC: " + this.AC);
 
             Platform.runLater(() -> {
-                updateRegisterTable(regTable, "PC: " + this.PC + "\n" + "IR:" + instruction.getData() + "\n" + "AC: " + this.AC);
+                updateRegisterTable(regTable, "PC: " + this.PC + "\n" + "IR: " + instruction.getData() + "\n" + "AC: " + this.AC);
                 regTable.refresh();
+                updateCPUTable(cpuTable, "P" +pcb.getIdNumber() + ": " + instruction.getWeight());
+                System.out.println("P" + pcb.getIdNumber() + ": " + instruction.getWeight());
             });
 
             System.out.println(instruction.getData());

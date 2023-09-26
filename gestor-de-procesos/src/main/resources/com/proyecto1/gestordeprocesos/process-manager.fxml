@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="598.0" prefWidth="1083.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyecto1.gestordeprocesos.ProcessManagerController">
-    <Button fx:id="loadFiles" layoutX="46.0" layoutY="29.0" mnemonicParsing="false" onAction="#onLoadFilesClick" text="Load files" />
+    <Button fx:id="loadFiles" layoutX="30.0" layoutY="29.0" mnemonicParsing="false" onAction="#onLoadFilesClick" text="Load files" />
     <TableView fx:id="diskTable" layoutX="824.0" layoutY="29.0" prefHeight="422.0" prefWidth="234.0" translateX="1.0" AnchorPane.bottomAnchor="250.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columns>
             <TableColumn fx:id="positionColumn" prefWidth="50.0" text="Pos" />
@@ -20,15 +20,20 @@
        <TableColumn fx:id="contColumn" prefWidth="181.0" text="Valor en memoria" />
      </columns>
    </TableView>
-   <TableView fx:id="processTable" layoutX="30.0" layoutY="148.0" prefHeight="317.0" prefWidth="200.0" AnchorPane.bottomAnchor="133.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="148.0">
+   <TableView fx:id="processTable" layoutX="30.0" layoutY="90.0" prefHeight="317.0" prefWidth="200.0" AnchorPane.bottomAnchor="191.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="90.0">
      <columns>
        <TableColumn fx:id="processColumn" prefWidth="75.0" text="Procesos" />
        <TableColumn fx:id="stateColumn" prefWidth="124.0" text="Estados" />
      </columns>
    </TableView>
-   <TableView fx:id="registerTable" layoutX="269.0" layoutY="148.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="269.0" AnchorPane.topAnchor="148.0">
+   <TableView fx:id="registerTable" layoutX="242.0" layoutY="90.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="408.0" AnchorPane.leftAnchor="242.0" AnchorPane.topAnchor="90.0">
      <columns>
        <TableColumn fx:id="registerColumn" prefWidth="199.0" text="BCP actual CPU 1" />
+     </columns>
+   </TableView>
+   <TableView fx:id="cpuTable" layoutX="447.0" layoutY="90.0" prefHeight="100.0" prefWidth="122.0" AnchorPane.bottomAnchor="408.0" AnchorPane.leftAnchor="447.0" AnchorPane.topAnchor="90.0">
+     <columns>
+       <TableColumn fx:id="cpuColumn" prefWidth="126.0" text="CPU 1" />
      </columns>
    </TableView>
 </AnchorPane>
