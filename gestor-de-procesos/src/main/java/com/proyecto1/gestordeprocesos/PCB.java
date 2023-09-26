@@ -1,5 +1,6 @@
 package com.proyecto1.gestordeprocesos;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,9 @@ public class PCB implements MemoryData {
     int[] stack = new int[5]; //no sure how this works. I think it's to store calculated values
     private int executingCPU;
     private long startTime;
+    //    private LocalTime startTime;
+//    private LocalTime endTime;
+//    private LocalTime elapsedTime;
     private long elapsedTime;
     private final List<String> openFiles = new ArrayList<>(); //I/O state information: opened files
     private PCB nextPCB;
@@ -20,6 +24,7 @@ public class PCB implements MemoryData {
     private int processSize;
     private int priority;
     private int idNumber = 0;
+    ProcessStats stats = new ProcessStats();
 
     public PCB() {
         this.registers = new HashMap<>();
@@ -32,6 +37,21 @@ public class PCB implements MemoryData {
         count++;
     }
 
+    public void setStartTime(LocalTime startTime) {
+        this.stats.setStartTime(startTime);
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.stats.setEndTime(endTime);
+    }
+
+    public void setProcessName(String processName) {
+        this.stats.setProcessName(processName);
+    }
+
+    public String getStats() {
+        return stats.getStats();
+    }
 
     public void setState(State state) {
         this.state = state;

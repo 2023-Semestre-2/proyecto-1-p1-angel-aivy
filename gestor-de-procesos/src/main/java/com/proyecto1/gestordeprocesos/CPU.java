@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -58,7 +59,8 @@ public class CPU {
     }
 
 
-    public void executeInstruction(Memory memory, PCB pcb, TableView<RegisterRow> regTable, TableView<CPURow> cpuTable) {
+    //Execute all instructions
+    public String executeInstruction(Memory memory, PCB pcb, TableView<RegisterRow> regTable, TableView<CPURow> cpuTable) {
 
         if (Platform.isFxApplicationThread()) {
             System.out.println("Hilo principal de la UI");
@@ -66,19 +68,21 @@ public class CPU {
             System.out.println("Hilo separado");
         }
 
+        System.out.println(pcb.getIdNumber() + " - " + pcb.getId());
+
         MemoryData[] mainMemory = memory.getMemory();
         int startAddress = pcb.getStartAddress();
+        pcb.setStartTime(LocalTime.now());
+        pcb.setProcessName("P:" + pcb.getIdNumber());
         for (int i = startAddress; i < startAddress + pcb.getProcessSize(); i++) {
             this.PC = i;
             Instruction instruction = new Instruction(mainMemory[i].getData());
             this.operatorCalc(instruction);
 
-//            updateRegisterTable(regTable,"PC: " + this.PC + "\n" + "IR:" + instruction.getData() + "\n" + "AC: " + this.AC);
-
             Platform.runLater(() -> {
                 updateRegisterTable(regTable, "PC: " + this.PC + "\n" + "IR: " + instruction.getData() + "\n" + "AC: " + this.AC);
                 regTable.refresh();
-                updateCPUTable(cpuTable, "P" +pcb.getIdNumber() + ": " + instruction.getWeight());
+                updateCPUTable(cpuTable, "P" + pcb.getIdNumber() + ": " + instruction.getWeight());
                 System.out.println("P" + pcb.getIdNumber() + ": " + instruction.getWeight());
             });
 
@@ -90,6 +94,8 @@ public class CPU {
                 e.printStackTrace();
             }
         }
+        pcb.setEndTime(LocalTime.now());
+        return pcb.getStats();
     }
 
     public int[] ejecutarInstruction(int memoryPos, Memory memory) {

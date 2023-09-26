@@ -2,10 +2,7 @@ package com.proyecto1.gestordeprocesos;
 
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -47,6 +44,9 @@ public class ProcessManagerController {
     @FXML
     private TableColumn<CPURow, String> cpuColumn;
 
+    @FXML
+    private TextArea stats;
+
     private MiniComputer miniComputer;
 
 
@@ -64,6 +64,8 @@ public class ProcessManagerController {
 
         registerColumn.setCellValueFactory(cellData -> cellData.getValue().contentProperty());
         cpuColumn.setCellValueFactory(cellData -> cellData.getValue().contentProperty());
+
+        stats.setText("Estadísticas: \n");
     }
 
     @FXML
@@ -78,7 +80,7 @@ public class ProcessManagerController {
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() throws Exception {
-                miniComputer.execute(registerTable, cpuTable);
+                miniComputer.execute(registerTable, cpuTable, stats, processTable);
                 return null;
             }
         };
