@@ -12,10 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class MiniComputer {
     private final Storage storage;
@@ -32,6 +29,11 @@ public class MiniComputer {
         this.workQueue = new LinkedList<>();
         this.memory = new Memory();
         this.cpu = new CPU();
+    }
+
+    public void setSizeMemoryDisk(int memorySize, int diskSize) {
+        memory.setMemorySize(memorySize);
+        storage.SetMemorySize(diskSize);
     }
 
     public void setIndexSpaceSizeToStorage(int size) {
@@ -61,10 +63,20 @@ public class MiniComputer {
     }
 
     public void loadFileContentToMemory() {
-        PCB pcb = getPCB();
-        List<String> fileContent = getFileContentFromStorage(pcb.getId());
-        memory.loadToMemory(pcb, fileContent);
+//        PCB pcb = getPCB();
+//        List<String> fileContent = getFileContentFromStorage(pcb.getId());
+//        memory.loadToMemory(pcb, fileContent);
 //        memory.loadToMemory();
+//
+        for (PCB pcb : this.workQueue) {
+            List<String> fileContent = getFileContentFromStorage(pcb.getId());
+            this.memory.loadToMemory(pcb, fileContent);
+        }
+//        while (!this.workQueue.isEmpty()) {
+//            PCB pcb = this.workQueue.poll();
+//            List<String> fileContent = getFileContentFromStorage(pcb.getId());
+//            memory.loadToMemory(pcb, fileContent);
+//        }
 
     }
 
@@ -103,17 +115,20 @@ public class MiniComputer {
 
     public void execute(TableView<RegisterRow> table, TableView<CPURow> cpuTable, TextArea textField, TableView<ProcessRow> processTable) {
         for (PCB pcb : workQueue) {
+            System.out.println("Executing P: " + pcb.getId());
             pcb.setState(State.RUNNING);
             addPCBToTable(processTable);
             String stats = this.cpu.executeInstruction(this.memory, pcb, table, cpuTable);
             pcb.setState(State.FINISHED);
             this.allStats.add(stats);
+            textField.clear();
             for (String processStats : allStats) {
                 System.out.println(processStats);
                 textField.appendText(processStats);
             }
             System.out.println(workQueue.peek().getState());
             addPCBToTable(processTable);
+//            System.out.println("Fin P: " + pcb.getId());
 //            workQueue.poll();
         }
     }

@@ -9,11 +9,15 @@ import java.util.List;
  * handling both virtual memory (reserved as an extra space) and file storage, including indexing of the files.
  */
 public class Storage {
-    private final int SIZE = 512; // The total size of the storage, todo: to be loaded from a settings file in future implementations
+    private int SIZE = 512; // The total size of the storage, todo: to be loaded from a settings file in future implementations
     private final int VIRTUAL_MEMORY_SIZE = 64; // The size of the virtual memory, todo: to be loaded from a settings file in future implementations
     private int INDEX_SPACE_SIZE; // The size of the space reserved for storing file indices
     private final String[] diskStorage = new String[SIZE]; // The array representing the storage disk
     private int start = 0; // The start index for storing new files
+
+    public void SetMemorySize(int size){
+        this.SIZE = size;
+    }
 
 
     /**

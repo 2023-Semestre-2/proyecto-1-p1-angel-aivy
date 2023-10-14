@@ -3,7 +3,7 @@ package com.proyecto1.gestordeprocesos;
 import java.util.List;
 
 public class Memory {
-    private final int MEMORY_SIZE = 256;
+    private int MEMORY_SIZE = 256;
     //    private final int PCB_MEMORY_SIZE = 15; // Space reserved to the PCBs
     private MemoryData[] memory = new MemoryData[MEMORY_SIZE]; //It's a generic type because we need to add two types of object
     private int reservedSpace; // Space reserved to the PCBs
@@ -15,6 +15,10 @@ public class Memory {
         this.contentStartIndex = 0;
     }
 
+    public void setMemorySize(int size){
+        this.MEMORY_SIZE = size;
+    }
+
     public void loadToMemory(PCB pcb, List<String> content) {
         if (reservedSpace < 1 || reservedSpace + content.size() >= MEMORY_SIZE) {
             System.out.println("There is no enough space");
@@ -24,9 +28,14 @@ public class Memory {
         memory[reservedSpace - 1] = pcb;
 
         contentStartIndex = reservedSpace;
+        int contPos = 0;
         for (int i = 0; i < content.size() && reservedSpace + i < MEMORY_SIZE; i++) {
             memory[reservedSpace + i] = new Instruction(content.get(i));
+            //reservedSpace = reservedSpace + i;//todo aca sobre escribe cada vez, debe actualziar el start hasta donde llego el primer contenido
+            contPos = reservedSpace + i;
         }
+        reservedSpace = contPos;
+        System.out.println("start addres from loadToMemory: " + contentStartIndex);
         pcb.setStartAddress(contentStartIndex);
 //        System.out.println(contentStartIndex);
     }

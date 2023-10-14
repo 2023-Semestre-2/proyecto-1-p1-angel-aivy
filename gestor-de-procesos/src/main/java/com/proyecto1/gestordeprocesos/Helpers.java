@@ -2,11 +2,13 @@ package com.proyecto1.gestordeprocesos;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Queue;
 
 public class Helpers {
@@ -33,6 +35,7 @@ public class Helpers {
         // Set the data in the TableView
         diskTable.setItems(data);
     }
+
     public static void updateMemoryTable(TableView<MemoryRow> memoryTable, Memory memory) {
         // Get the data from the storage array
         MemoryData[] mainMemory = memory.getMemory();
@@ -50,6 +53,7 @@ public class Helpers {
         // Set the data in the TableView
         memoryTable.setItems(data);
     }
+
     //
     public static void updateProcessTable(TableView<ProcessRow> processTable, Queue<PCB> workQueue) {
         ObservableList<ProcessRow> data = FXCollections.observableArrayList();
@@ -73,6 +77,37 @@ public class Helpers {
                 }
             }
         });
+    }
+
+    public static void setMemory_DiskConfig(String fileName, MiniComputer miniComputer, Label label) {
+        Map<String, Integer> memoryConfig = loadMemoryConfig(fileName);
+        // Obteniendo y asignando valores
+
+        int memoriaPrincipal = memoryConfig.getOrDefault("memoriaPrincipal", -1);
+        int disco = memoryConfig.getOrDefault("disco", -1);
+
+        miniComputer.setSizeMemoryDisk(memoriaPrincipal, disco);
+
+        label.setText("Memoria principal " + memoriaPrincipal + ", Disco " + disco);
+
+        System.out.println("Memoria Principal: " + memoriaPrincipal);
+        System.out.println("Disco: " + disco);
+    }
+
+    public static Map<String, Integer> loadMemoryConfig(String filename) {
+        Map<String, Integer> config = new HashMap<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split("=");
+                if (parts.length == 2) {
+                    config.put(parts[0].trim(), Integer.parseInt(parts[1].trim()));
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
+        }
+        return config;
     }
 
 }

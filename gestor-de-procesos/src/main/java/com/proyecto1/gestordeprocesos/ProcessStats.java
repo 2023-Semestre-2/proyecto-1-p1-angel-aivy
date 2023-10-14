@@ -21,10 +21,12 @@ public class ProcessStats {
 
     public String getStats() {
         setDuration();
-        return "Proceso: " + this.processName + "\n" +
+        return "---------------\n" +
+                "Proceso: " + this.processName + "\n" +
                 "Hora inicio: " + this.getStartTime() + "\n" +
                 "Hora fin: " + this.endTime + "\n" +
-                "Duración en segundos: " + this.seconds;
+                "Duración en segundos: " + this.seconds + "\n" +
+                "----------------\n";
     }
 
     public String getProcessName() {

@@ -5,8 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProcessManagerController {
     @FXML
@@ -47,6 +52,9 @@ public class ProcessManagerController {
     @FXML
     private TextArea stats;
 
+    @FXML
+    private Label config;
+
     private MiniComputer miniComputer;
 
 
@@ -66,6 +74,10 @@ public class ProcessManagerController {
         cpuColumn.setCellValueFactory(cellData -> cellData.getValue().contentProperty());
 
         stats.setText("Estadísticas: \n");
+
+        //Load memory config
+        Helpers.setMemory_DiskConfig("config.txt", miniComputer, config);
+
     }
 
     @FXML
@@ -85,8 +97,6 @@ public class ProcessManagerController {
             }
         };
         new Thread(task).start();
-
-
     }
 
     @FXML
@@ -94,7 +104,7 @@ public class ProcessManagerController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource Files");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("ASM Files", "*.asm")
+                new FileChooser.ExtensionFilter("ASM Files", "*.asm", "*.txt")
         );
         List<File> selectedFiles = fileChooser.showOpenMultipleDialog(null);
         if (selectedFiles != null) {

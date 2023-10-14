@@ -123,7 +123,7 @@ public class PCB implements MemoryData {
 
     @Override
     public String getData() {
-        return "PCB: " + count + " " + id;
+        return "PCB: " + idNumber + " " + id;
     }
 
     public int getCount() {

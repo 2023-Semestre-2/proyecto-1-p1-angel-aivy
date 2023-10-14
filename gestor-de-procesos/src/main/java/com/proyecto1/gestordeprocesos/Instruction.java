@@ -7,12 +7,20 @@ public class Instruction implements MemoryData {
     //    private String value;
     private int value;
     private int weight;
+    private String label;
 
     private String strInstruction;
 
     public Instruction(String instructionLine) {
         this.strInstruction = instructionLine;
         String[] parts = instructionLine.split(" ");
+
+//        if(parts[0].endsWith(":")) {
+//            this.label = parts[0].substring(0, parts[0].length() - 1);
+//            return;  // No hay más procesamiento necesario para etiquetas
+//        }
+
+
         if (parts.length < 2) {
             System.out.print("Error extracting the operator");
             return;
@@ -30,6 +38,10 @@ public class Instruction implements MemoryData {
         }
         setWeight(operator);
     }
+
+//    public String getLabel() {
+//        return label;
+//    }
 
     public boolean isInteger(String input) {
         try {

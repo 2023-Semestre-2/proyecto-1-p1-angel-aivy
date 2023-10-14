@@ -1,17 +1,11 @@
 package com.proyecto1.gestordeprocesos;
 
-
-/*coje lo que esta en memria principal y ejecuta por lotes de 5
-    tiene la cola de trabajo
-    todo el BCP y el programa que corresponde a ese BCP
-ejecuta un proceso a la vez
-solo lee de la mem proincipal, ejecutar las funciones y tiene que actualizar el estado
-     */
-
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
+import javafx.util.Duration;
 
 import java.time.LocalTime;
 import java.util.HashMap;
@@ -26,6 +20,7 @@ public class CPU {
     int AC; // Acumulador
     int PC; // Program Counter
     HashMap<String, Integer> registers;
+//    HashMap<String, Integer> labelToInstructionPointerMap = new HashMap<>();
 
     public CPU() {
         registers = new HashMap<>();
@@ -38,6 +33,15 @@ public class CPU {
     public void agregarRegistro(String registro, int valor) {
         this.registers.put(registro, valor);
     }
+
+//    private void buildLabelToInstructionPointerMap(Instruction[] program) {
+//        for (int i = 0; i < program.length; i++) {
+//            Instruction instr = program[i];
+//            if (instr.getOperator() == null) {
+//                labelToInstructionPointerMap.put(instr.getLabel(), i);
+//            }
+//        }
+//    }
 
 
     public void updateRegisterTable(TableView<RegisterRow> registerTable, String content) {
@@ -62,6 +66,7 @@ public class CPU {
     //Execute all instructions
     public String executeInstruction(Memory memory, PCB pcb, TableView<RegisterRow> regTable, TableView<CPURow> cpuTable) {
 
+        System.out.println("------from CPU---------");
         if (Platform.isFxApplicationThread()) {
             System.out.println("Hilo principal de la UI");
         } else {
@@ -74,6 +79,9 @@ public class CPU {
         int startAddress = pcb.getStartAddress();
         pcb.setStartTime(LocalTime.now());
         pcb.setProcessName("P:" + pcb.getIdNumber());
+        System.out.println("right before for:" + pcb.getId());
+        System.out.println("start address: " + startAddress+ " process size: " + pcb.getProcessSize() + "end memory: " + startAddress+pcb.getProcessSize());
+
         for (int i = startAddress; i < startAddress + pcb.getProcessSize(); i++) {
             this.PC = i;
             Instruction instruction = new Instruction(mainMemory[i].getData());
@@ -95,6 +103,7 @@ public class CPU {
             }
         }
         pcb.setEndTime(LocalTime.now());
+        System.out.println("------from CPU---------");
         return pcb.getStats();
     }
 
@@ -129,6 +138,7 @@ public class CPU {
         String registroKey = instruccion.getRegister();
         String registroKey2 = instruccion.getRegister2();
         int valor = instruccion.getValue();
+//        boolean comparisonFlag = false;
 
         switch (operator) {
             case "MOV" -> // MOV
@@ -187,12 +197,22 @@ public class CPU {
                 }
             }
             case "JMP" -> {
+                //PC = labelToInstructionPointerMap.get(registroKey) - 1;
             }
             case "CMP" -> {
+//                int value1 = this.registers.getOrDefault(registroKey, 0);
+//                int value2 = registroKey2 != null ? this.registers.getOrDefault(registroKey2, 0) : valor;
+//                comparisonFlag = value1 == value2;
             }
             case "JNE" -> {
+//                if (!comparisonFlag) {
+//                    PC = labelToInstructionPointerMap.get(registroKey) - 1;  // -1 porque al final del loop el PC incrementará
+//                }
             }
             case "JE" -> {
+//                if (comparisonFlag) {
+//                    PC = labelToInstructionPointerMap.get(registroKey) - 1;  // -1 porque al final del loop el PC incrementará
+//                }
             }
             case "PARAM" -> {
             }
