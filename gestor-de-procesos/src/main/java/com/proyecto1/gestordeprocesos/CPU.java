@@ -196,25 +196,26 @@ public class CPU {
                     }
                 }
             }
-            case "JMP" -> {
+            case "JMP" -> {System.out.println("JMP instrcution is not implemented");
                 //PC = labelToInstructionPointerMap.get(registroKey) - 1;
             }
-            case "CMP" -> {
+            case "CMP" -> {System.out.println("CMP instrcution is not implemented");
 //                int value1 = this.registers.getOrDefault(registroKey, 0);
 //                int value2 = registroKey2 != null ? this.registers.getOrDefault(registroKey2, 0) : valor;
 //                comparisonFlag = value1 == value2;
             }
-            case "JNE" -> {
+            case "JNE" -> {System.out.println("JNE instrcution is not implemented");
 //                if (!comparisonFlag) {
 //                    PC = labelToInstructionPointerMap.get(registroKey) - 1;  // -1 porque al final del loop el PC incrementará
 //                }
             }
-            case "JE" -> {
+            case "JE" -> {System.out.println("JE instrcution is not implemented");
 //                if (comparisonFlag) {
 //                    PC = labelToInstructionPointerMap.get(registroKey) - 1;  // -1 porque al final del loop el PC incrementará
 //                }
             }
             case "PARAM" -> {
+                System.out.println("PARAM instrcution is not implemented");
             }
             case "PUSH" -> //Saves in the stack value in AX register
                     stack.push(this.registers.getOrDefault("AX", 0));
