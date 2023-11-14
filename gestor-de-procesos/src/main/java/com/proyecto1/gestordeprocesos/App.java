@@ -10,12 +10,13 @@ import java.io.IOException;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("process-manager.fxml"));
+//        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("process-manager.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("ui.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 //        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Process Manager!");
         stage.setScene(scene);
-        stage.setFullScreen(true);
+//        stage.setFullScreen(true);
         stage.show();
     }
     public static void main(String[] args) {

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="906.0" prefWidth="1506.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyecto1.gestordeprocesos.Controller">
+    <children>
+        <Label layoutX="34.0" layoutY="32.0" text="Algoritmo de ejecución :" />
+        <RadioButton fx:id="rbFCFS" layoutX="34.0" layoutY="58.0" mnemonicParsing="false" text="FCFS" />
+        <RadioButton fx:id="rbSRT" layoutX="34.0" layoutY="83.0" mnemonicParsing="false" text="SRT" />
+        <RadioButton fx:id="rbSJF" layoutX="34.0" layoutY="109.0" mnemonicParsing="false" text="SJF" />
+        <RadioButton fx:id="rbHRRN" layoutX="33.0" layoutY="155.0" mnemonicParsing="false" text="HRRN" />
+        <RadioButton fx:id="rbRR" layoutX="33.0" layoutY="130.0" mnemonicParsing="false" text="RR" />
+        <Label layoutX="306.0" layoutY="28.0" text="Asignación de memoria:" />
+        <RadioButton fx:id="rbPaginacion" layoutX="310.0" layoutY="53.0" mnemonicParsing="false" text="Paginación (física y virtual)" />
+        <RadioButton fx:id="rbParticionamientoDinamico" layoutX="306.0" layoutY="134.0" mnemonicParsing="false" text="Particionamiento dinámico" />
+        <RadioButton fx:id="rbParticionamientoFijo" layoutX="532.0" layoutY="53.0" mnemonicParsing="false" text="Particionamiento fijo" />
+        <Label layoutX="742.0" layoutY="22.0" text="Cantidad de CPU:" />
+        <RadioButton fx:id="rbCPU1" layoutX="760.0" layoutY="46.0" mnemonicParsing="false" text="1" />
+        <RadioButton fx:id="rbCPU2" layoutX="759.0" layoutY="69.0" mnemonicParsing="false" text="2" />
+        <RadioButton fx:id="rbCPU3" layoutX="759.0" layoutY="92.0" mnemonicParsing="false" text="3" />
+        <RadioButton fx:id="rbCPU4" layoutX="759.0" layoutY="116.0" mnemonicParsing="false" text="4" />
+        <Label layoutX="898.0" layoutY="18.0" text="Estadísticas" />
+        <Separator layoutX="37.0" layoutY="215.0" prefHeight="5.0" prefWidth="914.0" />
+        <TableView layoutX="898.0" layoutY="38.0" prefHeight="162.0" prefWidth="419.0">
+            <columns>
+                <TableColumn prefWidth="39.0" text="PID" />
+                <TableColumn prefWidth="60.0" text="T. Llegada" />
+                <TableColumn prefWidth="60.0" text="T. Exc" />
+                <TableColumn prefWidth="54.0" text="T. Inic" />
+                <TableColumn prefWidth="48.0" text="T. Fin" />
+                <TableColumn prefWidth="48.0" text="T. Esp" />
+                <TableColumn prefWidth="48.0" text="T. Resp" />
+            </columns>
+        </TableView>
+        <TableView fx:id="tablaCPU1" layoutX="457.0" layoutY="253.0" prefHeight="137.0" prefWidth="480.0">
+            <columns>
+                <TableColumn fx:id="pidColumn" prefWidth="39.0" text="PID" />
+                <TableColumn fx:id="estadoColumn" prefWidth="60.0" text="Estado" />
+                <TableColumn fx:id="tiempoCPUColum" prefWidth="60.0" text="T. CPU" />
+                <TableColumn fx:id="pcColumn" prefWidth="35.0" text="PC" />
+                <TableColumn fx:id="registroColumn" prefWidth="56.0" text="Registro" />
+                <TableColumn fx:id="acColumn" prefWidth="40.0" text="AC" />
+                <TableColumn fx:id="dirInicioColumn" prefWidth="62.0" text="Dir. inicio" />
+                <TableColumn fx:id="dirFinColumn" prefWidth="57.0" text="Dir. fin" />
+                <TableColumn fx:id="sigBCPColumn" prefWidth="70.0" text="Sig. BCP" />
+            </columns>
+        </TableView>
+        <Label layoutX="460.0" layoutY="229.0" text="CPU 1:" />
+        <TableView layoutX="457.0" layoutY="424.0" prefHeight="137.0" prefWidth="480.0">
+            <columns>
+                <TableColumn prefWidth="39.0" text="PID" />
+                <TableColumn prefWidth="60.0" text="Estado" />
+                <TableColumn prefWidth="60.0" text="T. CPU" />
+                <TableColumn prefWidth="35.0" text="PC" />
+                <TableColumn prefWidth="56.0" text="Registro" />
+                <TableColumn prefWidth="40.0" text="AC" />
+                <TableColumn prefWidth="62.0" text="Dir. inicio" />
+                <TableColumn prefWidth="57.0" text="Dir. fin" />
+                <TableColumn prefWidth="70.0" text="Sig. BCP" />
+            </columns>
+        </TableView>
+        <Label layoutX="460.0" layoutY="400.0" text="CPU 2:" />
+        <TableView layoutX="944.0" layoutY="253.0" prefHeight="137.0" prefWidth="480.0">
+            <columns>
+                <TableColumn prefWidth="39.0" text="PID" />
+                <TableColumn prefWidth="60.0" text="Estado" />
+                <TableColumn prefWidth="60.0" text="T. CPU" />
+                <TableColumn prefWidth="35.0" text="PC" />
+                <TableColumn prefWidth="56.0" text="Registro" />
+                <TableColumn prefWidth="40.0" text="AC" />
+                <TableColumn prefWidth="62.0" text="Dir. inicio" />
+                <TableColumn prefWidth="57.0" text="Dir. fin" />
+                <TableColumn prefWidth="70.0" text="Sig. BCP" />
+            </columns>
+        </TableView>
+        <Label layoutX="947.0" layoutY="229.0" text="CPU 3:" />
+        <TableView layoutX="944.0" layoutY="420.0" prefHeight="137.0" prefWidth="480.0">
+            <columns>
+                <TableColumn prefWidth="39.0" text="PID" />
+                <TableColumn prefWidth="60.0" text="Estado" />
+                <TableColumn prefWidth="60.0" text="T. CPU" />
+                <TableColumn prefWidth="35.0" text="PC" />
+                <TableColumn prefWidth="56.0" text="Registro" />
+                <TableColumn prefWidth="40.0" text="AC" />
+                <TableColumn prefWidth="62.0" text="Dir. inicio" />
+                <TableColumn prefWidth="57.0" text="Dir. fin" />
+                <TableColumn prefWidth="70.0" text="Sig. BCP" />
+            </columns>
+        </TableView>
+        <Label layoutX="947.0" layoutY="396.0" text="CPU 4:" />
+        <TableView fx:id="tablaDisco" layoutX="32.0" layoutY="229.0" prefHeight="385.0" prefWidth="200.0">
+            <columns>
+                <TableColumn fx:id="columnaPos" prefWidth="41.0" text="Pos" />
+                <TableColumn fx:id="columnaValor" prefWidth="158.0" text="Valor en disco" />
+            </columns>
+        </TableView>
+        <TableView fx:id="tablaMemoria" layoutX="244.0" layoutY="229.0" prefHeight="385.0" prefWidth="200.0">
+            <columns>
+                <TableColumn fx:id="columnaPosMemoria" prefWidth="42.0" text="Pos" />
+                <TableColumn fx:id="columnaValorMemoria" prefWidth="157.0" text="Valor en memoria" />
+            </columns>
+        </TableView>
+        <Button fx:id="cargarArchivos" layoutX="26.0" layoutY="855.0" mnemonicParsing="false" onAction="#onCargarArchivosClick" text="Cargar archivos" />
+        <Button fx:id="ejecutar" layoutX="149.0" layoutY="855.0" mnemonicParsing="false" onAction="#onEjecutarClick" text="Ejecutar" />
+        <Button fx:id="siguiente" layoutX="225.0" layoutY="855.0" mnemonicParsing="false" onAction="#onNextClick" text="Siguiente" />
+      <Label layoutX="306.0" layoutY="81.0" text="Tamaño Página:" />
+      <TextField fx:id="pagesSize" layoutX="306.0" layoutY="102.0" prefHeight="25.0" prefWidth="37.0" />
+      <TextField fx:id="tablePagesSize" layoutX="419.0" layoutY="101.0" prefHeight="25.0" prefWidth="37.0" />
+      <Label layoutX="414.0" layoutY="81.0" text="Tabla de Páginas:" />
+      <Separator layoutX="177.0" layoutY="109.0" prefHeight="5.0" prefWidth="135.0" rotate="90.0" />
+      <Separator layoutX="644.0" layoutY="99.0" prefHeight="5.0" prefWidth="135.0" rotate="90.0" />
+      <Label layoutX="306.0" layoutY="160.0" text="Tamaño inicial" />
+      <TextField fx:id="initialSize" layoutX="306.0" layoutY="180.0" prefHeight="25.0" prefWidth="37.0" />
+      <Label layoutX="410.0" layoutY="160.0" text="Política asignación" />
+      <ChoiceBox fx:id="politicaAsig" layoutX="406.0" layoutY="180.0" prefHeight="25.0" prefWidth="104.0" />
+      <Label layoutX="532.0" layoutY="81.0" text="# de particiones" />
+      <TextField fx:id="numeroParticiones" layoutX="532.0" layoutY="102.0" prefHeight="25.0" prefWidth="37.0" />
+      <Label layoutX="532.0" layoutY="136.0" text="Tamaño partición" />
+      <TextField fx:id="particionSize" layoutX="532.0" layoutY="157.0" prefHeight="25.0" prefWidth="37.0" />
+      <TableView fx:id="tablaEjecucion" layoutX="32.0" layoutY="629.0" prefHeight="162.0" prefWidth="1397.0">
+        <columns>
+          <TableColumn fx:id="pidColumnEjecucion" prefWidth="39.0" text="PID" />
+        </columns>
+      </TableView>
+      <Label layoutX="120.0" layoutY="111.0" text="Quantum" />
+      <TextField fx:id="quantum" layoutX="120.0" layoutY="132.0" prefHeight="25.0" prefWidth="37.0" />
+    </children>
+</AnchorPane>

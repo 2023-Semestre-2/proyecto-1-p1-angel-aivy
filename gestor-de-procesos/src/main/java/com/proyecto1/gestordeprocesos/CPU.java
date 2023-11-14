@@ -87,6 +87,7 @@ public class CPU {
             Instruction instruction = new Instruction(mainMemory[i].getData());
             this.operatorCalc(instruction);
 
+            //aca actualiza la UI
             Platform.runLater(() -> {
                 updateRegisterTable(regTable, "PC: " + this.PC + "\n" + "IR: " + instruction.getData() + "\n" + "AC: " + this.AC);
                 regTable.refresh();
