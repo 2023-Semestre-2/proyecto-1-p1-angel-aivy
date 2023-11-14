@@ -1,0 +1,6 @@
+MOV AX, 8
+MOV BX, 4
+CMP AX, BX
+ADD AX, 1
+SUB AX, 3
+MOV BX, AX
